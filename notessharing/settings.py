@@ -124,3 +124,5 @@ AUTH_USER_MODEL = 'nssapp.CustomUser'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 USE_TZ = True
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
