@@ -1,0 +1,107 @@
+body {
+    background: #0f172a;
+}
+
+.card {
+    border-radius: 15px;
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.03);
+}
+
+.card-body {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.bg-primary {
+    background: linear-gradient(135deg, #3b82f6, #1e3a8a) !important;
+}
+
+.bg-warning {
+    background: linear-gradient(135deg, #f59e0b, #b45309) !important;
+}
+
+h1 {
+    font-weight: bold;
+    color: white;
+}
+
+p {
+    color: white !important;
+}
+h3 {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+h6 {
+    opacity: 0.8;
+}
+
+.card {
+    cursor: pointer;
+}
+
+
+/* Slide bar   */
+
+.nav-link {
+    color: #cbd5f5;
+    padding: 10px 15px;
+    display: block;
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    background: #1e293b;
+    color: #38bdf8;
+    border-radius: 8px;
+}
+
+.sb-sidenav {
+    min-height: 100vh;
+}
+
+.form-control {
+    background: #020617;
+    color: white;
+    border: 1px solid #334155;
+}
+
+.form-control:focus {
+    background: #020617;
+    color: white;
+    border-color: #38bdf8;
+    box-shadow: none;
+}
+
+textarea.form-control {
+    min-height: 100px;
+}
+
+
+body {
+    background: #0f172a !important;
+}
+
+/* main content background */
+#layoutSidenav_content {
+    background: #0f172a !important;
+}
+
+/* container background fix */
+.container-fluid {
+    background: transparent !important;
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    border: none;
+}
+
+.btn-success:hover {
+    box-shadow: 0 0 10px #22c55e;
+}

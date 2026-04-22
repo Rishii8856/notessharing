@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+    <div class="container-fluid px-4" style="padding-top:20px;">
+
+        <h2 class="text-white mb-3">Manage Notes</h2>
+
+        <!-- Breadcrumb -->
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active text-white">Manage Notes</li>
+        </ol>
+
+        <!-- Card -->
+        <div class="card shadow-lg border-0" style="background:#1e293b; border-radius:15px;">
+
+            <!-- Header -->
+            <div class="card-header text-white" style="background:#020617; border-bottom:1px solid #334155;">
+                <i class="fas fa-table me-1"></i>
+                {{ user.first_name }} {{ user.last_name }} Notes Details
+            </div>
+
+            <!-- Body -->
+            <div class="card-body">
+
+                <!-- Messages -->
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <!-- Table -->
+                <div class="table-responsive">
+                    <table class="table table-dark table-hover align-middle mb-0">
+
+                        <thead>
+                            <tr style="color:#94a3b8;">
+                                <th>#</th>
+                                <th>Subject</th>
+                                <th>Notes Title</th>
+                                <th>Creation Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for i in data_list %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ i.subject }}</td>
+                                <td>{{ i.notestitle }}</td>
+                                <td>{{ i.created_at }}</td>
+
+                                <td>
+                                    <a class="btn btn-sm btn-primary" href="{% url 'view_notes' i.id %}">
+                                        Edit
+                                    </a>
+
+                                    <a class="btn btn-sm btn-danger"
+                                       href="{% url 'delete_notes' i.id %}"
+                                       onclick="return confirm('Do you really want to Delete ?');">
+                                        Delete
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
+
+                <!-- Pagination (NO CHANGE) -->
+                <div class="pagination text-center" style="padding-top:15px;">
+                    <span class="step-links">
+
+                        {% if data_list.has_previous %}
+                            <a href="?page=1" class="btn btn-sm btn-outline-light">First</a>
+                            <a href="?page={{ data_list.previous_page_number }}" class="btn btn-sm btn-outline-light">Previous</a>
+                        {% endif %}
+
+                        <span class="current text-white mx-2">
+                            Page {{ data_list.number }} of {{ data_list.paginator.num_pages }}
+                        </span>
+
+                        {% if data_list.has_next %}
+                            <a href="?page={{ data_list.next_page_number }}" class="btn btn-sm btn-outline-light">Next</a>
+                            <a href="?page={{ data_list.paginator.num_pages }}" class="btn btn-sm btn-outline-light">Last</a>
+                        {% endif %}
+
+                    </span>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Website Visitors</h2>
+
+<table border="1">
+<tr>
+    <th>IP Address</th>
+    <th>Visit Time</th>
+    <th>Duration (sec)</th>
+</tr>
+
+{% for v in visitors %}
+<tr>
+    <td>{{ v.ip_address }}</td>
+    <td>{{ v.visit_time }}</td>
+    <td>{{ v.duration }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+{% endblock %}  

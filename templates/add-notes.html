@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+    <div class="container-fluid px-4" style="padding-top:20px;">
+
+        <h2 class="text-white mb-3">Add Notes</h2>
+
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active text-white">Notes</li>
+        </ol>
+
+        <!-- Card -->
+        <div class="card shadow-lg border-0" style="background:#1e293b; border-radius:15px;">
+
+            <!-- Header -->
+            <div class="card-header text-white" style="background:#020617; border-bottom:1px solid #334155;">
+                <i class="fas fa-upload me-1"></i>
+                Add Notes
+            </div>
+
+            <!-- Body -->
+            <div class="card-body">
+
+                <!-- Messages -->
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <!-- Form -->
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label class="form-label text-white">Notes Title</label>
+                        <input type="text" class="form-control" name="notestitle" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-white">Subject</label>
+                        <input type="text" class="form-control" name="subject" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-white">Notes Description</label>
+                        <textarea class="form-control" name="notesdesc" required></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-white">Upload File</label>
+                        <input type="file" class="form-control" name="file1" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-white">More File</label>
+                        <input type="file" class="form-control" name="file2">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-white">More File</label>
+                        <input type="file" class="form-control" name="file3">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-white">More File</label>
+                        <input type="file" class="form-control" name="file4">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary px-4">Add Notes</button>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+{% endblock %}

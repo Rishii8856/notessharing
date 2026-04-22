@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+    <div class="container-fluid px-4" style="padding-top:20px;">
+
+        <h2 class="text-white mb-3">Update Notes</h2>
+
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active text-white">Notes</li>
+        </ol>
+
+        <!-- Card -->
+        <div class="card shadow-lg border-0" style="background:#1e293b; border-radius:15px;">
+
+            <!-- Header -->
+            <div class="card-header text-white" style="background:#020617;">
+                <i class="fas fa-edit me-1"></i> Update Notes
+            </div>
+
+            <!-- Body -->
+            <div class="card-body">
+
+                <!-- Messages -->
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-warning alert-dismissible fade show">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <!-- Form -->
+                <form method="POST" action="{% url 'edit_notes' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <input type="hidden" name="notes_id" value="{{ data_notes.id }}">
+
+                    <div class="mb-3">
+                        <label class="text-white">Notes Title</label>
+                        <input type="text" class="form-control" name="notestitle" value="{{ data_notes.notestitle }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="text-white">Subject</label>
+                        <input type="text" class="form-control" name="subject" value="{{ data_notes.subject }}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="text-white">Notes Description</label>
+                        <textarea class="form-control" name="notesdesc">{{ data_notes.notesdesc }}</textarea>
+                    </div>
+
+                    <!-- File 1 -->
+                    <div class="mb-3">
+                        <label class="text-white">File 1</label><br>
+                        {% if data_notes.file1 %}
+                            <a href="{{ data_notes.file1.url }}" target="_blank" class="btn btn-sm btn-success">View</a>
+                        {% else %}
+                            <span class="text-white">No file</span>
+                        {% endif %}
+                        <input type="file" class="form-control mt-2" name="file1">
+                    </div>
+
+                    <!-- File 2 -->
+                    <div class="mb-3">
+                        <label class="text-white">File 2</label><br>
+                        {% if data_notes.file2 %}
+                            <a href="{{ data_notes.file2.url }}" target="_blank" class="btn btn-sm btn-success">View</a>
+                        {% else %}
+                            <span class="text-white">No file</span>
+                        {% endif %}
+                        <input type="file" class="form-control mt-2" name="file2">
+                    </div>
+
+                    <!-- File 3 -->
+                    <div class="mb-3">
+                        <label class="text-white">File 3</label><br>
+                        {% if data_notes.file3 %}
+                            <a href="{{ data_notes.file3.url }}" target="_blank" class="btn btn-sm btn-success">View</a>
+                        {% else %}
+                            <span class="text-white">No file</span>
+                        {% endif %}
+                        <input type="file" class="form-control mt-2" name="file3">
+                    </div>
+
+                    <!-- File 4 -->
+                    <div class="mb-3">
+                        <label class="text-white">File 4</label><br>
+                        {% if data_notes.file4 %}
+                            <a href="{{ data_notes.file4.url }}" target="_blank" class="btn btn-sm btn-success">View</a>
+                        {% else %}
+                            <span class="text-white">No file</span>
+                        {% endif %}
+                        <input type="file" class="form-control mt-2" name="file4">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary px-4">
+                        <i class="fas fa-save"></i> Update Notes
+                    </button>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</main>
+{% endblock %}
