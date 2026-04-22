@@ -70,8 +70,9 @@ def doLogin(request):
         if user is not None:
             login(request, user)
 
-            # 🔥 next redirect fix
-            next_url = request.GET.get('next')
+            # 🔥 GET + POST donhi handle
+            next_url = request.GET.get('next') or request.POST.get('next')
+
             if next_url:
                 return redirect(next_url)
             else:
@@ -81,9 +82,7 @@ def doLogin(request):
             messages.error(request, 'Email or Password is not valid')
             return redirect('login')
 
-    else:
-        messages.error(request, 'Invalid request method')
-        return redirect('login')
+    return redirect('login')
 
 
 def USERSIGNUP(request):
