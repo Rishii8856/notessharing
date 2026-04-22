@@ -61,19 +61,26 @@ def doLogout(request):
 
 # 🔥 FINAL FIXED LOGIN FUNCTION
 def doLogin(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        next_url = request.POST.get("next")
 
         user = authenticate(request, username=username, password=password)
 
-        if user:
+        if user is not None:
             login(request, user)
-            return redirect('notes')   # simple redirect
-        else:
-            return redirect('login')
 
-    return redirect('login')
+            # 🔥 IMPORTANT FIX
+            if next_url:
+                return redirect(next_url)
+            else:
+                return redirect("notes")
+
+        else:
+            return redirect("login")
+
+    return redirect("login")
 
 
 def USERSIGNUP(request):
