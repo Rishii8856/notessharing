@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from nssapp.models import CustomUser, UserReg, Notes
 from django.contrib.auth import get_user_model
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator
 from django.db.models import Q
 
 User = get_user_model()
@@ -59,18 +59,28 @@ def doLogout(request):
     return redirect('login')
 
 
+# 🔥 FINAL FIXED LOGIN FUNCTION
 def doLogin(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
 
         user = authenticate(request, username=username, password=password)
+
         if user is not None:
             login(request, user)
-            return redirect('dashboard')
+
+            # 🔥 next redirect fix
+            next_url = request.GET.get('next')
+            if next_url:
+                return redirect(next_url)
+            else:
+                return redirect('notes')
+
         else:
             messages.error(request, 'Email or Password is not valid')
             return redirect('login')
+
     else:
         messages.error(request, 'Invalid request method')
         return redirect('login')
@@ -232,10 +242,8 @@ def EDIT_NOTES(request):
     return render(request, 'manage-notes.html')
 
 
-# 🔥 FINAL SEARCH FUNCTION (FIXED)
 def SEARCH_NOTES(request):
     userreg = UserReg.objects.get(admin_id=request.user.id)
-
     search = request.GET.get('search', '')
 
     if search:
@@ -252,6 +260,7 @@ def SEARCH_NOTES(request):
     })
 
 
+# 🔥 FINAL NOTES PAGE
 @login_required(login_url='/')
 def NOTES_DETAILS(request):
     data_list = Notes.objects.all()
