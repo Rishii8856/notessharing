@@ -67,19 +67,10 @@ def doLogin(request):
 
         user = authenticate(request, username=username, password=password)
 
-        if user is not None:
+        if user:
             login(request, user)
-
-            # 🔥 GET + POST donhi handle
-            next_url = request.GET.get('next') or request.POST.get('next')
-
-            if next_url:
-                return redirect(next_url)
-            else:
-                return redirect('notes')
-
+            return redirect('notes')   # simple redirect
         else:
-            messages.error(request, 'Email or Password is not valid')
             return redirect('login')
 
     return redirect('login')
@@ -262,6 +253,7 @@ def SEARCH_NOTES(request):
 # 🔥 FINAL NOTES PAGE
 @login_required(login_url='/')
 def NOTES_DETAILS(request):
+    
     data_list = Notes.objects.all()
     paginator = Paginator(data_list, 10)
 
@@ -271,5 +263,5 @@ def NOTES_DETAILS(request):
         data_list = paginator.page(page_number)
     except:
         data_list = paginator.page(1)
-
+    
     return render(request, 'notes.html', {"data_list": data_list})
